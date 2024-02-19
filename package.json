@@ -1,0 +1,21 @@
+{
+  "name": "puppeteer-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:dev": "tsc -p ./ && node --nolazy --max-old-space-size=2048 ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/kafka-node": "^3.0.0",
+    "@types/node": "^20.11.19",
+    "@types/puppeteer": "^7.0.4",
+    "@types/winston": "^2.4.4",
+    "puppeteer": "^22.1.0",
+    "typescript": "^5.3.3"
+  }
+}
