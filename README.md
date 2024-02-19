@@ -6,7 +6,7 @@ This project utilizes Puppeteer to scrape prices from a given URL.
 
 1. Clone the repository:
 
-git clone <repository_url>
+git clone https://github.com/ltasic/puppeteer-project.git
 
 2. Install dependencies:
 
