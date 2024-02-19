@@ -12,11 +12,20 @@ class PriceScraper {
         this.page = null;
     }
     async startScraping() {
-        let scrapedData = [];
         try {
             await this.launchBrowser();
             await this.openPage();
-            scrapedData = await this.scrapePrices();
+            const scrapedData = await this.scrapePrices();
+            const mappedObject = scrapedData.reduce((result, element, index) => {
+                result[(index + 1).toString()] = element;
+                return result;
+            }, {});
+            if (scraper.validateMappedObject(mappedObject)) {
+                scraper.storeDataAsJson(mappedObject, "scraped_data.json");
+            }
+            else {
+                console.error("Mapped object does not match the required format.");
+            }
         }
         catch (error) {
             console.error("Error occurred during scraping:", error);
@@ -24,7 +33,6 @@ class PriceScraper {
         finally {
             await this.closeBrowser();
         }
-        return scrapedData;
     }
     async storeDataAsJson(data, filePath) {
         try {
@@ -99,16 +107,5 @@ class PriceScraper {
 }
 const url = "https://www.idealo.de/preisvergleich/OffersOfProduct/201846460_-aspirin-plus-c-forte-800-mg-480-mg-brausetabletten-bayer.html";
 const scraper = new PriceScraper(url);
-scraper.startScraping().then((scrapedData) => {
-    const mappedObject = scrapedData.reduce((result, element, index) => {
-        result[(index + 1).toString()] = element;
-        return result;
-    }, {});
-    if (scraper.validateMappedObject(mappedObject)) {
-        scraper.storeDataAsJson(mappedObject, "scraped_data.json");
-    }
-    else {
-        console.error("Mapped object does not match the required format.");
-    }
-});
+scraper.startScraping();
 //# sourceMappingURL=index.js.map
